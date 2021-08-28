@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 
 def request_directory_path(instance, filename):
-  
     # file will be uploaded to MEDIA_ROOT / request_<id>/<filename>
     return 'request_{0}/{1}'.format(instance.id, filename)
 
@@ -19,12 +18,12 @@ class Contacts(models.Model):
     state = models.CharField(max_length=30)
     zip = models.CharField(max_length=20)
     country = models.CharField(max_length=25)
-    business_type = models.CharField(max_length=1, choices=BUSINESS_TYPE)
+    business_type = models.CharField(max_length=1, choices=BUSINESS_TYPE, default='R')
 
 
 class Requests(models.Model):
     request_id = models.BigAutoField(primary_key=True)
-    request_text = models.CharField(max_length=500)   # includes address & contact info
+    request_text = models.CharField(max_length=500) 
     post_date = models.DateTimeField('date posted')
     request_photo = models.ImageField(upload_to = request_directory_path)
     contact_id = models.ForeignKey(
