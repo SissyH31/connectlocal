@@ -26,5 +26,4 @@ class Order(models.Model):
     request_id = models.ForeignKey(
         Requests, on_delete=models.CASCADE,
     )
-    requests = models.ManyToOneRel(Requests)
     
