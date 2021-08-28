@@ -19,11 +19,10 @@ class Requests(models.Model):
     request_id = models.BigAutoField(primary_key=True)
 
 
-class Order(models.Model):
+class Orders(models.Model):
     contact_id = models.ForeignKey(
         Contacts, on_delete=models.CASCADE,
     )
-    request_id = models.ForeignKey(
-        Requests, on_delete=models.CASCADE,
-    )
+    order_id = models.BigAutoField(primary_key=True)
+    fulfillment_date = models.DateTimeField(auto_now=True)
     
