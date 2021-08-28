@@ -29,6 +29,7 @@ class Requests(models.Model):
     contact_id = models.ForeignKey(
         Contacts, on_delete=models.CASCADE,
     )
+    fullfilled = models.BooleanField(default=False)
 
 
 class Orders(models.Model):
