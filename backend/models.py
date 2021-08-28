@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timezone
 
 
 def request_directory_path(instance, filename):
@@ -30,16 +31,18 @@ class Contacts(models.Model):
     zip = models.CharField(max_length=20)
     country = models.CharField(max_length=25)
     business_type = models.CharField(max_length=1, choices=BUSINESS_TYPE, default='R')
+    profile_img = models.ImageField(upload_to=request_directory_path)
 
 
 class Requests(models.Model):
     request_id = models.BigAutoField(primary_key=True)
     request_item = models.CharField(max_length=500)
     request_amount = models.DecimalField()
-    requested_total_price = models.DecimalField()
-    requested_expense = models.CharField()
-    request_urgency = models.CharField()
-    post_date = models.DateTimeField('date posted')
+    requested_total_price = models.DecimalField(max_digits=9, decimal_places=3)
+    requested_expense = models.IntegerField()
+    requested_urgency = models.IntegerField()
+    post_date = models.DateTimeField(default=timezone.now)
+    requested_fulfillment_date = models.DateField()
     request_photo = models.ImageField(upload_to=request_directory_path)
     contact_id = models.ForeignKey(
         Contacts, on_delete=models.CASCADE,
