@@ -1,2 +1,2 @@
-# connect-local
+# Connect Local
  TechNova 2021
