@@ -14,7 +14,6 @@ Including another URLconf
 """
 from backend.models import Requests
 from backend.models import Contacts
-from backend.models import Users
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.urls import include, path
@@ -35,18 +34,10 @@ class ContactSerializer(serializers.ModelSerializer):
         model = Contacts
         fields = '__all__'
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Users
-        fields = '__all__'
-
-
 BUSINESS_CHOICES = (
     ('R', 'Restaurant'),
     ('F', 'Farm'),
 )
-
 
 class RequestFilter(filters.FilterSet):
     business_type = filters.ChoiceFilter(choices=BUSINESS_CHOICES)
@@ -73,21 +64,11 @@ class ContactViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = ContactSerializer
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = UserSerializer
-
-
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register('requests', RequestViewSet, 'requests')
 router.register('contacts', ContactViewSet, 'contacts')
-router.register('users', UserViewSet, 'users')
-
+ 
 urlpatterns = [
     path('', include('backend.urls')),
     path('admin/', admin.site.urls),
