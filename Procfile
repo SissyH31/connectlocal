@@ -1,1 +1,1 @@
-web: gunicorn connectlocal.wsgi
+web: gunicorn --chdir connectlocal connectlocal.wsgi
